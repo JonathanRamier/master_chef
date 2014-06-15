@@ -1,0 +1,4 @@
+{
+	"name": "Web_server",
+	"run_list": [ "recipe[java-open-jdk]" ]
+}
