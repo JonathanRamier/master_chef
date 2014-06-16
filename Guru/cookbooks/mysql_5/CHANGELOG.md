@@ -1,11 +1,11 @@
-tomcat CHANGELOG
-================
+mysql_5 CHANGELOG
+=================
 
-This file is used to list changes made in each version of the tomcat cookbook.
+This file is used to list changes made in each version of the mysql_5 cookbook.
 
 0.1.0
 -----
-- [your_name] - Initial release of tomcat
+- [your_name] - Initial release of mysql_5
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.

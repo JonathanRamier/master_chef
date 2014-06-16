@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: tomcat
+# Cookbook Name:: mysql_5
 # Recipe:: default
 #
 # Copyright 2014, YOUR_COMPANY_NAME
