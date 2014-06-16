@@ -5,6 +5,7 @@ default['sonarqube']['downloads']['runner'] = "http://repo1.maven.org/maven2/org
 default["sonarqube"]["conf"]["dir"]  		= "/etc/sonar/"
 default["sonarqube"]["listen_ports"] 		= [ "9100" ]
 
-default["sonarqube"]["log_path"] 			= "/var/log/sonarqube/"
-default["sonarqube"]["bin_dir"] 			= "/usr/local/bin/"
+default["sonarqube"]["logs_path"] 			= "/var/log/sonarqube/"
+default["sonarqube"]["binary_dir"] 			= "/usr/local/bin/"
 default["sonarqube"]["home_path"] 			= "/usr/local/sonarqube/"
+default['sonarqube']['web_host']			= "0.0.0.0"
