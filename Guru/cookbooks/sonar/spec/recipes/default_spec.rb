@@ -12,11 +12,11 @@ describe 'sonar::default' do
   end
 
   it 'unzip package downloaded' do
-    expect(chef_run).to 
+    expect(chef_run).to run_execute("/usr/local/sonarqube/")
   end
 
   it 'create link in folder configuration' do
-    expect(chef_run).to
+    expect(chef_run).to create_link()
   end
 
   it 'create link in folder logs' do
