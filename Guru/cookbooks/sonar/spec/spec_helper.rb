@@ -22,5 +22,5 @@ RSpec.configure do |config|
   config.platform = 'ubuntu'
 
   # Specify the operating version to mock Ohai data from
-  config.version = '12.04'
+  config.version = '14.04'
 end

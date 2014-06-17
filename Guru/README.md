@@ -64,3 +64,5 @@ Next Steps
 ==========
 
 Read the README file in each of the subdirectories for more information about what goes in those directories.
+
+Read also documentation about ChefSpec : http://rubydoc.info/github/sethvargo/chefspec/ChefSpec/API/RemoteFileMatchers

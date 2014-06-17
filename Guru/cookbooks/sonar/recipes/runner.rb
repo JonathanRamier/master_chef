@@ -7,10 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
-remote_file "#{node["sonarqube"]["dir"]["home"]}" do
+remote_file "#{node["runner"]["dir"]["home"]}" do
   action :create_if_missing
   owner "root"
   group "root"
   mode "0644"
-  source node['sonarqube']['downloads']['package']
+  source node['runner']['downloads']['package']
 end

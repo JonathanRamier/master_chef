@@ -1,20 +1,41 @@
 require_relative '../spec_helper'
 
 describe 'sonar::default' do
-  subject { ChefSpec::Runner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
 
   # Write quick specs using `it` blocks with implied subjects
   #it { should do_something('...') }
 
   # Write full examples using the `expect` syntax
-  it 'download file from site' do
-    expect(subject).to do_something('...')
+  it 'downloads file from site sonar' do
+    expect(chef_run).to create_remote_file_if_missing("/usr/local/sonarqube/")
   end
 
-  # Use an explicit subject
-  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
-
-  it 'does something' do
-    expect(chef_run).to do_something('...')
+  it 'unzip package downloaded' do
+    expect(chef_run).to 
   end
+
+  it 'create link in folder configuration' do
+    expect(chef_run).to
+  end
+
+  it 'create link in folder logs' do
+    expect(chef_run).to
+  end
+
+  it 'create link in folder binary' do
+    expect(chef_run).to
+  end
+
+  it 'configure sonar file configuration' do
+    expect(chef_run).to
+  end
+
+  it 'Start the service Sonar' do
+    expect(chef_run).to
+  end
+
+  #it 'does something' do
+  #  expect(chef_run).to do_something('...')
+  #end
 end
