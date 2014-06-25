@@ -24,15 +24,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     m.vm.provision :shell, path: "upgradeSystem.sh"  # Via Shell
 
     m.vm.provision "chef_solo" do |cs|               # Via Chef-Solo
-      cs.custom_config_path = "Guru/solo.rb"
+      # cs.custom_config_path = "Guru/solo.rb"
       cs.cookbooks_path = "Guru/cookbooks"
       cs.data_bags_path = "Guru/data_bags"
       cs.roles_path = "Guru/roles"
+      cs.add_recipe "java-open-jdk"
     end
 
 
     # Shared Sync Folder 
-    m.vm.synced_folder "#{current_dir}/www/", "/var/www/", create: true, owner: "www-data", group: "www-data"
+    m.vm.synced_folder "#{current_dir}/www/", "/var/www/", create: true, :nfs => true
     
 
     # Define property VM
