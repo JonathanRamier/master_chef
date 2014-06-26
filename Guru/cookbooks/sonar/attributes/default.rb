@@ -1,6 +1,7 @@
 # Url downloads SonarQube & SonarRunner
 default['sonarqube']['site'] 				= "http://sonarqube.org/"
-default['sonarqube']['downloads']['package']= "http://dist.sonar.codehaus.org/sonarqube-4.3.1.zip"
+default['sonarqube']['downloads']['version']= "4.3.1"
+default['sonarqube']['downloads']['package']= "http://dist.sonar.codehaus.org/sonarqube-#{node['sonarqube']['downloads']['version']}.zip"
 default['sonarqube']['downloads']['runner'] = "http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip"
 
 

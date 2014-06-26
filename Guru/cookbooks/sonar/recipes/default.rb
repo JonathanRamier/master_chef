@@ -29,8 +29,5 @@ file "#{node["sonarqube"]["dir"]["temp"]}" do
 	mode "0644"
 end
 
-link "/tmp/passwd" do
-	to "/etc/passwd"
-end
 
 

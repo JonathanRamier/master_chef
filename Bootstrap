@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+
+
+CONFIGURATION_BUILD = 	"build.conf.yml"
+VAGRANT_FILE_PATH 	=	"Vagrantfile"
+GURU_DIRECTORY_PATH =	"GURU/"
+
+
+def replace_elements_with_values(path_file, hash_values)
+	if File.readable?(path_file)
+		File.open(path_file, "r+") do |variable|
+			hash_values.each do |key, val|
+				p val
+			end
+		end
+	end
+end
+
+
+def vagrant_option_file(options_vagrant)
+	options_vagrant.each do |option|
+		replace_elements_with_values(VAGRANT_FILE_PATH, option)
+	end
+end
+
+
+def main
+	# Read YAML File configuration.
+	contents_configuration_yml = File.read(CONFIGURATION_BUILD)
+	configurations = YAML.load("#{contents_configuration_yml}")
+
+
+	# Define all configuration option for tool installations
+	configurations['MasterChef'].each do |options|
+		options.each do |name, values| 
+			case name
+			when "vagrant"
+				vagrant_option_file(values)
+			when "chef"
+
+			else
+
+			end
+		end
+	end
+end
+
+main
+
+# Launch your virtual machine
+#system('vagrant up --provision')
