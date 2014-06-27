@@ -19,27 +19,31 @@
 
 # Permissions to create tables, indices and triggers must be granted to JDBC user.
 # The schema must be created first.
-sonar.jdbc.username=sonar
-sonar.jdbc.password=sonar
+sonar.jdbc.username=<%= node['sonarqube']["database"]['user'] %>
+sonar.jdbc.password=<%= node['sonarqube']["database"]['password'] %>
 
 #----- Embedded database H2
 # Note: it does not accept connections from remote hosts, so the
 # SonarQube server and the maven plugin must be executed on the same host.
 
+<% if node['sonarqube']["database"]['driver'] == "mysql" %>
 # Comment the following line to deactivate the default embedded database.
-sonar.jdbc.url=jdbc:h2:tcp://localhost:9092/sonar
+sonar.jdbc.url=jdbc:h2:tcp://<%= node['sonarqube']["database"]['host'] %>:<%= node['sonarqube']["database"]['host'] %>/<%= node['sonarqube']["database"]['name'] %>
 
 # directory containing H2 database files. By default it's the /data directory in the SonarQube installation.
-#sonar.embeddedDatabase.dataDir=
+# sonar.embeddedDatabase.dataDir=
 # H2 embedded database server listening port, defaults to 9092
-#sonar.embeddedDatabase.port=9092
+sonar.embeddedDatabase.port=<%= node['sonarqube']["database"]['port'] %>
+<% end %>
 
-
+<% if node['sonarqube']["database"]['driver'] == "mysql" %>
 #----- MySQL 5.x
 # Comment the embedded database and uncomment the following line to use MySQL
-#sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+sonar.jdbc.url=jdbc:mysql://<%= node['sonarqube']["database"]['host'] %>:<%= node['sonarqube']["database"]['port'] %>/<%= node['sonarqube']["database"]['name'] %>?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+<% end %>
 
 
+<% if node['sonarqube']["database"]['driver'] == "oracle" %>
 #----- Oracle 10g/11g
 # To connect to Oracle database:
 #
@@ -48,18 +52,21 @@ sonar.jdbc.url=jdbc:h2:tcp://localhost:9092/sonar
 # - Copy the driver to the directory extensions/jdbc-driver/oracle/
 # - If you need to set the schema, please refer to http://jira.codehaus.org/browse/SONAR-5000
 # - Comment the embedded database and uncomment the following line:
-#sonar.jdbc.url=jdbc:oracle:thin:@localhost/XE
+sonar.jdbc.url=jdbc:oracle:thin:@<%= node['sonarqube']["database"]['host'] %>/XE
+<% end %>
 
-
+<% if node['sonarqube']["database"]['driver'] == "postgresql" %>
 #----- PostgreSQL 8.x/9.x
 # Comment the embedded database and uncomment the following property to use PostgreSQL.
 # If you don't use the schema named "public", please refer to http://jira.codehaus.org/browse/SONAR-5000
-#sonar.jdbc.url=jdbc:postgresql://localhost/sonar
+sonar.jdbc.url=jdbc:postgresql://<%= node['sonarqube']["database"]['host'] %>/<%= node['sonarqube']["database"]['name'] %>
+<% end %>
 
-
+<% if node['sonarqube']["database"]['driver'] == "sqlserver" %>
 #----- Microsoft SQLServer
 # The Jtds open source driver is available in extensions/jdbc-driver/mssql. More details on http://jtds.sourceforge.net
-#sonar.jdbc.url=jdbc:jtds:sqlserver://localhost/sonar;SelectMethod=Cursor
+sonar.jdbc.url=jdbc:jtds:sqlserver://<%= node['sonarqube']["database"]['host'] %>/<%= node['sonarqube']["database"]['name'] %>;SelectMethod=Cursor
+<% end %>
 
 
 #----- Connection pool settings
@@ -78,14 +85,14 @@ sonar.jdbc.timeBetweenEvictionRunsMillis=30000
 # Binding IP address. For servers with more than one IP address, this property specifies which
 # address will be used for listening on the specified ports.
 # By default, ports will be used on all IP addresses associated with the server.
-#sonar.web.host=0.0.0.0
+sonar.web.host=<%= node['sonarqube']["web"]['host'] %>
 
 # Web context. When set, it must start with forward slash (for example /sonarqube).
 # The default value is root context (empty value).
 #sonar.web.context=
 
 # TCP port for incoming HTTP connections. Disabled when value is -1.
-#sonar.web.port=9000
+sonar.web.port=<%= node['sonarqube']["web"]['port'] %>
 
 # TCP port for incoming HTTPS connections. Disabled when value is -1 (default).
 #sonar.web.https.port=-1
