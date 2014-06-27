@@ -1,0 +1,18 @@
+--- 
+MasterChef: 
+  - vagrant:
+    - box : "master"
+    - name: "MasterChef"
+    - ip:    "172.16.20.10"
+  - chef:
+    - sonarqube: 
+      - database: 
+        - driver: mysql
+        - host: localhost
+        - user: sonar
+        - pass: "123456789"
+      - downloads: 
+        -  version: "4.2.1"
+      - web: 
+        - host: "0.0.0.0"
+        - port: "9100"

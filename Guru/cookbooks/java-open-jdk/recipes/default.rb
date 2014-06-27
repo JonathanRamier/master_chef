@@ -6,6 +6,11 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+%w{software-properties-common python-software-properties}.each do |pkg|
+	apt_package "#{pkg}" do
+		action :install
+	end
+end
 
 execute "add-repository" do
 	command "sudo add-apt-repository ppa:webupd8team/java"
@@ -20,8 +25,12 @@ execute "apt-get-update" do
 	action :nothing
 end
 
-execute "install-oracle-java" do
-	command "sudo apt-get install oracle-java8-installer"
-	user "vagrant"
+execute "auto-accept-license" do
+	command "echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections"
 	action :run
+end
+
+
+apt_package "oracle-java8-installer" do
+	action :install
 end
