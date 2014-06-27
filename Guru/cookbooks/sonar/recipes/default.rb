@@ -29,8 +29,23 @@ file "#{node["sonarqube"]["dir"]["temp"]}" do
 	mode "0644"
 end
 
-link "/tmp/passwd" do
-	to "/etc/passwd"
+link "#{node["sonarqube"]["dir"]["logs"]}" do
+	to "#{node["sonarqube"]["dir"]["home"]}/logs"
 end
+
+link "#{node["sonarqube"]["dir"]["bin"]}" do
+	to "#{node["sonarqube"]["dir"]["home"]}/bin/linux-x86-64/sonar.sh"
+end
+
+link "#{node["sonarqube"]["dir"]["conf"]}" do
+	to "#{node["sonarqube"]["dir"]["home"]}/conf"
+end
+
+
+execute "sonar start" do
+	command "sonar.sh start"
+	action :run
+end
+
 
 
