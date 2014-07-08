@@ -1,4 +1,4 @@
-define :mysql_user :action => :create do
+define :mysql_user, :action => :create do
 	if params[:user] != nil && params[:password] != nil
 
 		host = params[:host] ||= node["mysql"]["network"]["hostname"]

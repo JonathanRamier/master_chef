@@ -24,16 +24,17 @@ package "mysql-server" do
 	action :install
 end
 
-template "my.cnf.erb" do
-	source "#{node['mysql']['path']['cnf']}"
+template "#{node['mysql']['path']['cnf']}/my.cnf" do
+	source "my.cnf.erb"
 	owner "root"
 	group "root"
 	mode "0644"
+	backup false
 end
 
 
 service "mysql" do
-	supports :status => true, :restart => true, :reload => true :stop => true
-	action [ :enable, :restart ]
+	supports :status => true, :restart => true, :reload => true, :stop => true
+	action [ :restart ]
 end
 

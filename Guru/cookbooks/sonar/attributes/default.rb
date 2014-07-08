@@ -10,7 +10,7 @@ default["sonarqube"]["dir"]["conf"]  		= "/etc/sonarqube/"
 default["sonarqube"]["dir"]["logs"] 		= "/var/log/sonarqube/"
 default["sonarqube"]["dir"]["binary"]		= "/usr/local/bin/"
 default["sonarqube"]["dir"]["home"] 		= "/usr/local/sonarqube/"
-default["sonarqube"]["dir"]["temp"] 		= "/temp/sonarqube/"
+default["sonarqube"]["dir"]["temp"] 		= "/tmp/sonarqube/"
 
 
 # Web Configuration

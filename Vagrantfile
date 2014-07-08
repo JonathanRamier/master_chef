@@ -6,11 +6,12 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = "master"
+  config.vm.box = "Master"
   current_dir = File.expand_path(File.dirname(__FILE__))
 
   config.vbguest.auto_update = true
   config.vbguest.no_remote = true
+  config.ssh.username = "vagrant"
 
 
   config.vm.define :master do |m|
@@ -21,14 +22,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     m.vm.boot_timeout =  2000
 
     # Provisionning VM
-    m.vm.provision :shell, path: "upgradeSystem.sh"  # Via Shell
+    # m.vm.provision :shell, path: "upgradeSystem.sh"  # Via Shell
 
     m.vm.provision "chef_solo" do |cs|               # Via Chef-Solo
-      # cs.custom_config_path = "Guru/solo.rb"
+      cs.custom_config_path = "Guru/vagrant_solo.rb"
       cs.cookbooks_path = "Guru/cookbooks"
       cs.data_bags_path = "Guru/data_bags"
       cs.roles_path = "Guru/roles"
-      cs.add_recipe "sonar"
+      cs.add_recipe "mysql"
     end
 
 

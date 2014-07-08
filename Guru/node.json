@@ -1,4 +1,4 @@
 {
 	"name": "Web_server",
-	"run_list": [ "recipe[sonar]" ]
+	"run_list": [ "recipe[mysql]" ]
 }
