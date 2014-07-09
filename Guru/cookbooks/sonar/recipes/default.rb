@@ -10,7 +10,19 @@
 include_recipe "java-open-jdk::default"
 include_recipe "mysql::default"
 
-remote_file "#{node["sonarqube"]["dir"]["temp"]}" do
+
+%w{node["sonarqube"]["dir"]["logs"] node["sonarqube"]["dir"]["home"] node["sonarqube"]["dir"]["conf"]}.each do | path |
+	directory "#{path}" do
+		owner "root"
+		group "root"
+		mode "0755"
+		action :create
+		recursive true
+	end unless File.directory?(path)
+end
+
+
+remote_file "#{node["sonarqube"]["dir"]["tmp"]}/#{node['sonarqube']['downloads']['filename']}" do
   action :create_if_missing
   owner "root"
   group "root"
@@ -19,13 +31,13 @@ remote_file "#{node["sonarqube"]["dir"]["temp"]}" do
 end
 
 execute "unzip-sonar" do
-	command "unzip #{node["sonarqube"]["dir"]["temp"]}"
+	command "unzip #{node["sonarqube"]["dir"]["tmp"]}/#{node['sonarqube']['downloads']['filename']}"
 	creates "#{node["sonarqube"]["dir"]["home"]}"
 	action :run
 end
 
 
-file "#{node["sonarqube"]["dir"]["temp"]}" do
+file "#{node["sonarqube"]["dir"]["tmp"]}" do
 	action :delete
 	owner "root"
 	group "root"

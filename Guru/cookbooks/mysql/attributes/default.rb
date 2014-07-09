@@ -3,7 +3,7 @@ default['mysql']['path']['data']		= "/var/lib/mysql"
 default['mysql']['path']['bin']			= "/usr/bin/mysql"
 default['mysql']['path']['cnf']			= "/etc/mysql"
 default['mysql']['path']['log']			= "/var/log/mysql"
-default['mysql']['path']['tmp']			= "/temp/mysql_scripts"
+default['mysql']['path']['tmp']			= "/tmp"
 
 
 # Network configuration
