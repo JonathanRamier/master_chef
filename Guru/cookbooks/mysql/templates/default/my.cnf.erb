@@ -43,7 +43,7 @@ basedir		= /usr
 datadir		= <%= node['mysql']['path']['data'] %>
 tmpdir		= <%= node['mysql']['path']['tmp'] %>
 lc-messages-dir	= /usr/share/mysql
-skip-external-locking
+#skip-external-locking
 
 #
 # Instead of skip-networking the default is now to listen only on
@@ -81,9 +81,9 @@ query_cache_size        = 16M
 log_error = <%= node['mysql']['path']['log'] %>/error.log
 #
 # Here you can see queries with especially long duration
-#log_slow_queries	= /var/log/mysql/mysql-slow.log
-#long_query_time = 2
-#log-queries-not-using-indexes
+log_slow_queries	= /var/log/mysql/mysql-slow.log
+long_query_time = 2
+log-queries-not-using-indexes
 #
 # The following can be used as easy to replay backup logs or for replication.
 # note: if you are setting up a replication slave, see README.Debian about

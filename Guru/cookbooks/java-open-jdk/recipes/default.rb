@@ -6,8 +6,8 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-%w{software-properties-common python-software-properties}.each do |pkg|
-	apt_package "#{pkg}" do
+%w{python-software-properties software-properties-common}.each do |pkg|
+	package "#{pkg}" do
 		action :install
 	end
 end
@@ -31,6 +31,6 @@ execute "auto-accept-license" do
 end
 
 
-apt_package "oracle-java8-installer" do
+package "oracle-java8-installer" do
 	action :install
 end

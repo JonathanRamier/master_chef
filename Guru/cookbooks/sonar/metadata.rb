@@ -9,5 +9,5 @@ version          '0.1.0'
 supports 'ubuntu'
 supports 'debian'
 
-depends 'open-java-jdk'
+depends 'java-open-jdk'
 depends 'mysql'
