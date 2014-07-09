@@ -15,7 +15,7 @@ end
 
 
 execute "confirm-password" do
-	command "mysql-server mysql-server/root_password_again password #{node['mysql']['user']['pass']} | sudo /usr/bin/debconf-set-selections"
+	command "echo mysql-server mysql-server/root_password_again password #{node['mysql']['user']['pass']} | sudo /usr/bin/debconf-set-selections"
 	action :run
 end 
 

@@ -29,7 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       cs.cookbooks_path = "Guru/cookbooks"
       cs.data_bags_path = "Guru/data_bags"
       cs.roles_path = "Guru/roles"
-      cs.add_recipe "mysql"
+      cs.add_recipe "sonar"
     end
 
 

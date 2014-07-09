@@ -7,6 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "java-open-jdk::default"
+include_recipe "mysql::default"
+
 remote_file "#{node["sonarqube"]["dir"]["temp"]}" do
   action :create_if_missing
   owner "root"
@@ -41,6 +44,18 @@ link "#{node["sonarqube"]["dir"]["conf"]}" do
 	to "#{node["sonarqube"]["dir"]["home"]}/conf"
 end
 
+template "#{node["sonarqube"]["dir"]["home"]}/conf/sonar.properties" do
+	source "sonar.properties.erb"
+	owner "root"
+	group "root"
+	mode "0644"
+end
+
+mysql_user "create_user" do
+	user node['sonarqube']["database"]['user']
+	password node['sonarqube']["database"]['password']
+	action :create
+end
 
 execute "sonar start" do
 	command "sonar.sh start"

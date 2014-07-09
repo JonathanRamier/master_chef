@@ -15,3 +15,8 @@ default['mysql']['network']['port']		= 3306
 # User Root configuration
 default['mysql']['user']['name']		= "root"
 default['mysql']['user']['pass']		= "123456789"
+
+
+# Encoding configuration
+default['mysql']['data']['encoding']	= "utf8"
+default['mysql']['data']['collate']		= "utf8_general_ci"
