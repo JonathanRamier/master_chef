@@ -11,14 +11,15 @@ include_recipe "java-open-jdk::default"
 include_recipe "mysql::default"
 
 
-%w{node["sonarqube"]["dir"]["logs"] node["sonarqube"]["dir"]["home"] node["sonarqube"]["dir"]["conf"]}.each do | path |
-	directory "#{path}" do
+
+%w{node["sonarqube"]["dir"]["logs"] node["sonarqube"]["dir"]["conf"]}.each do | path |
+	directory path do
 		owner "root"
 		group "root"
 		mode "0755"
 		action :create
 		recursive true
-	end unless File.directory?(path)
+	end if File.directory?(path)
 end
 
 
@@ -31,29 +32,27 @@ remote_file "#{node["sonarqube"]["dir"]["tmp"]}/#{node['sonarqube']['downloads']
 end
 
 execute "unzip-sonar" do
-	command "unzip #{node["sonarqube"]["dir"]["tmp"]}/#{node['sonarqube']['downloads']['filename']}"
-	creates "#{node["sonarqube"]["dir"]["home"]}"
+	command "unzip #{node["sonarqube"]["dir"]["tmp"]}/#{node['sonarqube']['downloads']['filename']} -d /usr/local/ && mv -f /usr/local/sonarqube-#{node['sonarqube']['downloads']['version']} #{node["sonarqube"]["dir"]["home"]}"
 	action :run
-end
+end unless File.directory?(node["sonarqube"]["dir"]["home"])
 
-
-file "#{node["sonarqube"]["dir"]["tmp"]}" do
+file "#{node["sonarqube"]["dir"]["tmp"]}/#{node['sonarqube']['downloads']['filename']}" do
 	action :delete
 	owner "root"
 	group "root"
 	mode "0644"
 end
 
-link "#{node["sonarqube"]["dir"]["logs"]}" do
-	to "#{node["sonarqube"]["dir"]["home"]}/logs"
-end
-
-link "#{node["sonarqube"]["dir"]["bin"]}" do
+link "#{node["sonarqube"]["dir"]["binary"]}/sonarqube" do
 	to "#{node["sonarqube"]["dir"]["home"]}/bin/linux-x86-64/sonar.sh"
 end
 
 link "#{node["sonarqube"]["dir"]["conf"]}" do
-	to "#{node["sonarqube"]["dir"]["home"]}/conf"
+	to "#{node["sonarqube"]["dir"]["home"]}/conf/*"
+end
+
+link "#{node["sonarqube"]["dir"]["logs"]}"  do
+	to "#{node["sonarqube"]["dir"]["home"]}/logs/*"
 end
 
 template "#{node["sonarqube"]["dir"]["home"]}/conf/sonar.properties" do
@@ -63,16 +62,22 @@ template "#{node["sonarqube"]["dir"]["home"]}/conf/sonar.properties" do
 	mode "0644"
 end
 
-mysql_user "create_user" do
-	user node['sonarqube']["database"]['user']
+mysql_user "sonar" do
 	password node['sonarqube']["database"]['password']
 	action :create
 end
 
-execute "sonar start" do
-	command "sonar.sh start"
-	action :run
+
+mysql_database "sonar" do
+	action :create
 end
+
+
+
+# execute "sonar start" do
+# 	command "sonar.sh start"
+# 	action :run
+# end
 
 
 

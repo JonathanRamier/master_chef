@@ -1,15 +1,11 @@
 define :mysql_database, :action => :create do
-	if params[:db_name] != nil
-		encoding = params[:encoding] ||= node['mysql']['data']['encoding']
+	encoding = params[:encoding] ||= node['mysql']['data']['encoding']
+	db_name  = params[:db_name]  ||= params[:name]
+	if params[:action] == :create
 
-		if params[:action] == :create
-
-			mysql_command "create_database" do
-				sql "CREATE SCHEMA IF NOT EXISTS #{params[:db_name]} CHARACTER SET ='#{encoding}' COLLATE #{node['mysql']['data']['collate']}"
-				action :execute
-			end
-		end	
-	else
-		Chef::Application.fatal! "You must define a database name."
-	end
+		mysql_command "create_database" do
+			sql "CREATE SCHEMA IF NOT EXISTS #{db_name} CHARACTER SET ='#{encoding}' COLLATE #{node['mysql']['data']['collate']}"
+			action :execute
+		end
+	end	
 end

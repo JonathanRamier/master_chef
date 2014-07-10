@@ -2,7 +2,7 @@ define :mysql_command, :action => :execute do
 
 	if params[:sql] != nil
 
-		sql 		= params[:sql]
+		sql = params[:sql]
 
 		if params[:action] == :execute
 			inline_cmd 	= "#{node['mysql']['path']['bin']} -u root -e '#{sql}'"

@@ -7,7 +7,7 @@ if [ ! -s release-upgrade.log ]; then
 	sudo do-release-upgrade -f DistUpgradeViewNonInteractive > release-upgrade.log
 fi;
 
-sudo apt-get install unzip 
+sudo apt-get install -y unzip 
 
 #wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
 #sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'

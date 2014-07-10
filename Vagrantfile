@@ -22,7 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     m.vm.boot_timeout =  2000
 
     # Provisionning VM
-    # m.vm.provision :shell, path: "upgradeSystem.sh"  # Via Shell
+    m.vm.provision :shell, path: "upgradeSystem.sh"  # Via Shell
 
     m.vm.provision "chef_solo" do |cs|               # Via Chef-Solo
       cs.custom_config_path = "Guru/vagrant_solo.rb"
