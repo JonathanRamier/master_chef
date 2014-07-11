@@ -3,6 +3,7 @@ define :mysql_user, :action => :create do
 	host = params[:host] ||= node["mysql"]["network"]["hostname"]
 	user = params[:user] ||= params[:name]
 	pass = params[:password] ||= ''
+	
 
 	# Create a MySQL user
 	if params[:action] == :create

@@ -34,7 +34,6 @@ end
 
 
 service "mysql" do
-	supports :status => true, :restart => true, :reload => true, :stop => true
-	action [ :restart ]
+	action [ :enable, :restart ]
 end
 

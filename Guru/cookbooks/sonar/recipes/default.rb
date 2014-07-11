@@ -45,14 +45,22 @@ end
 
 link "#{node["sonarqube"]["dir"]["binary"]}/sonarqube" do
 	to "#{node["sonarqube"]["dir"]["home"]}/bin/linux-x86-64/sonar.sh"
+	action :create
+end
+
+link "/etc/init.d/sonarqube" do
+	to "#{node["sonarqube"]["dir"]["home"]}/bin/linux-x86-64/sonar.sh"
+	action :create
 end
 
 link "#{node["sonarqube"]["dir"]["conf"]}" do
-	to "#{node["sonarqube"]["dir"]["home"]}/conf/*"
+	to "#{node["sonarqube"]["dir"]["home"]}/conf"
+	action :create
 end
 
 link "#{node["sonarqube"]["dir"]["logs"]}"  do
-	to "#{node["sonarqube"]["dir"]["home"]}/logs/*"
+	to "#{node["sonarqube"]["dir"]["home"]}/logs"
+	action :create
 end
 
 template "#{node["sonarqube"]["dir"]["home"]}/conf/sonar.properties" do
@@ -72,12 +80,20 @@ mysql_database "sonar" do
 	action :create
 end
 
+mysql_privilege "sonar_privilege" do
+	privileges 	"ALL PRIVILEGES"
+	user 		node['sonarqube']["database"]['user']
+	password 	node['sonarqube']["database"]['password']
+	action 		:grant
+	grant_option true
+end
 
 
-# execute "sonar start" do
-# 	command "sonar.sh start"
-# 	action :run
-# end
+service "sonarqube" do
+ 	supports :status => true, :restart => true, :reload => true
+ 	action [ :enable, :start ]
+end
+
 
 
 
